@@ -5,7 +5,8 @@ import scala.util.Random
 /**
   * Created by Niels Bokmans on 21-3-2016.
   */
-class TicTacToeSinglePlayer {
+class TicTacToe(singlePlayer: Boolean) {
+  val isSinglePlayer = singlePlayer;
   val positions = List[TicTacToeTile](new TicTacToeTile(1), new TicTacToeTile(2), new TicTacToeTile(3),
     new TicTacToeTile(4), new TicTacToeTile(5), new TicTacToeTile(6), new TicTacToeTile(7),
     new TicTacToeTile(8), new TicTacToeTile(9))
@@ -43,16 +44,23 @@ class TicTacToeSinglePlayer {
   combo8.update(1, 6)
   combo8.update(2, 3)
 
-  def processInput(position: Int): Boolean = {
+  def processInput(position: Int, isPlayer1Turn: Boolean): Boolean = {
+    if (gameDone || hasWinner > -1) return false
     val tile = getTileAt(position)
     if (tile.mark != TicTacToeMarks.Empty) return false
-    tile.mark = TicTacToeMarks.Circle
-    if (!gameDone() && hasWinner == -1) selectRandom()
+    if (!isSinglePlayer) {
+      if (isPlayer1Turn) tile.mark = TicTacToeMarks.Circle else tile.mark = TicTacToeMarks.Cross
+    } else {
+      tile.mark = TicTacToeMarks.Circle
+      if (!gameDone && hasWinner == -1) selectRandom()
+    }
     true
   }
 
   def winner: String = {
-    if (hasWinner == -1) "Het is gelijkspel!" else if (hasWinner == 1) "Speler 1 heeft gewonnen!" else "Speler 2 heeft gewonnen!"
+    if (isSinglePlayer) {
+      if (hasWinner == -1) "Het is gelijkspel!" else if (hasWinner == 1) "Speler 1 heeft gewonnen!" else "De computer heeft gewonnen!"
+    } else if (hasWinner == -1) "Het is gelijkspel!" else if (hasWinner == 1) "Speler 1 heeft gewonnen!" else "Speler 2 heeft gewonnen!"
   }
 
   def hasWinner: Int = {
@@ -84,7 +92,11 @@ class TicTacToeSinglePlayer {
     println(positions(6).toString + " " + positions(7).toString + " " + positions(8).toString)
   }
 
-  def gameDone(): Boolean = {
-    hasWinner != -1 || positions.count(_.mark == TicTacToeMarks.Empty) == 0
+  def gameDone: Boolean = {
+    hasWinner != -1 || getEmptyTiles == 0
+  }
+
+  def getEmptyTiles: Int = {
+    positions.count(_.mark == TicTacToeMarks.Empty)
   }
 }

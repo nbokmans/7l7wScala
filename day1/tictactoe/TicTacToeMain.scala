@@ -8,38 +8,22 @@ object TicTacToeMain {
     val bufferedReader = io.Source.stdin.bufferedReader()
     println("Hoeveel spelers spelen er? (1 of 2)")
     val players = bufferedReader.readLine().toInt
-    println(players)
     if (players < 0 || players > 2) println("Onjuist aantal!") else println("Er spelen " + players + " spelers")
-    if (players == 1) {
-      val game = new TicTacToeSinglePlayer()
-      println("Kies posities 1 (linksboven) - 9 (rechtsonder)")
-      while (!game.gameDone()) {
-        val input = bufferedReader.readLine().toInt
-        if (game.processInput(input)) {
-          game.print()
-        } else {
-          println("Ongeldige zet!")
-        }
+    val game = new TicTacToe(players == 1)
+    game.print()
+    println("Kies posities 1 (linksboven) - 9 (rechtsonder)")
+    while (!game.gameDone) {
+      val isPlayer1Turn: Boolean = game.getEmptyTiles % 2 != 0
+      if (isPlayer1Turn) println("Beurt: speler 1") else println("Beurt: speler 2")
+      val input = bufferedReader.readLine().toInt
+      if (game.processInput(input, isPlayer1Turn)) {
+        game.print()
+      } else {
+        println("Ongeldige zet!")
       }
-      println("Het spel is over!")
-      game.print()
-      println(game.winner)
-    } else if (players == 2) {
-      val game = new TicTacToeMultiPlayer()
-      println("Kies posities 1 (linksboven) - 9 (rechtsonder)")
-      while (!game.gameDone) {
-        val isPlayer1Turn: Boolean = game.getEmptyTiles % 2 != 0
-        if (isPlayer1Turn) println("Beurt: speler 1") else println("Beurt: speler 2")
-        val input = bufferedReader.readLine().toInt
-        if (game.processInput(input, isPlayer1Turn)) {
-          game.print()
-        } else {
-          println("Ongeldige zet!")
-        }
-      }
-      println("Het spel is over!")
-      game.print()
-      println(game.winner)
     }
+    println("Het spel is over!")
+    game.print()
+    println(game.winner)
   }
 }
