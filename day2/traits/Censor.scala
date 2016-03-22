@@ -14,7 +14,7 @@ trait Censor {
 
   def censorFromInputFile(fileName: String, input: String): String = {
     val map = scala.collection.mutable.Map[String, String]()
-    for (line <- io.Source.fromFile("src/day2/traits/badwords.txt").getLines()) {
+    for (line <- io.Source.fromFile("src/main/java/day2/traits/badwords.txt").getLines()) {
       val split = line.split(",")
       map += split(0) -> split(1)
     }
