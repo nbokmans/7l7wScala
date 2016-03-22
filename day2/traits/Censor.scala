@@ -6,9 +6,18 @@ package day2.traits
   */
 trait Censor {
 
-  val badWords = Map("Shoot" -> "Pucky", "Darn" -> "Beans")
+  val badWords = Map("shoot" -> "pucky", "darn" -> "beans")
 
   def censor(input: String): String = {
-    if (!badWords.contains(input)) input else badWords(input)
+    if (!badWords.contains(input.toLowerCase())) input else badWords(input.toLowerCase())
+  }
+
+  def censorFromInputFile(fileName: String, input: String): String = {
+    val map = scala.collection.mutable.Map[String, String]()
+    for (line <- io.Source.fromFile("src/day2/traits/badwords.txt").getLines()) {
+      val split = line.split(",")
+      map += split(0) -> split(1)
+    }
+    if (!map.contains(input.toLowerCase())) input else map(input.toLowerCase())
   }
 }

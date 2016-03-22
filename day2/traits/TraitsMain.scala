@@ -12,5 +12,9 @@ object TraitsMain {
     println(filteredWord)
     println(filteredWord2)
     println(filteredWord3)
+    println("Replace word with replacement loaded from file")
+    println(filteredWord.censorFromFile())
+    println(filteredWord2.censorFromFile())
+    println(filteredWord3.censorFromFile())
   }
 }
