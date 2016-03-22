@@ -15,8 +15,8 @@ class PageSizeFetcher(url: String) extends Actor {
 
   override def preStart(): Unit = {
     println("Fetching page size: " + url)
-    val greeter = context.actorOf(Props(new SizerState(url)), "sizer") //line 5
-    greeter ! SizerState.GetPageSize
+    val fetcher = context.actorOf(Props(new SizerState(url)), "sizer") //line 5
+    fetcher ! SizerState.GetPageSize
   }
 
   def receive = {

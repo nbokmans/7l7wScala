@@ -17,7 +17,7 @@ object Main {
   def fetchSizesSequentially() = {
     val start = System.nanoTime
     for (url <- urls) {
-      println("Size for " + url + ": " + Scraper.getPageSize(url));
+      println("Size for " + url + ": " + Scraper.getPageSize(url))
     }
     val end = System.nanoTime
     println("Fetching sequentially took " + (end - start) / 1000000000.0 + " seconds.")
