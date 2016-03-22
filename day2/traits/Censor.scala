@@ -2,7 +2,7 @@ package day2.traits
 
 /**
   * Created by Niels Bokmans on 22-3-2016.
-  * 131 146 137
+  * Relevant pages in book: 131 (Traits), 146 (Assignment), 138 (Maps)
   */
 trait Censor {
 
