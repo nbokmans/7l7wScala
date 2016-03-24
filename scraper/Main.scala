@@ -10,8 +10,8 @@ object Main {
   val urls = List("http://www.amazon.com", "https://www.google.com", "http://www.cnn.com", "http://www.twitter.com")
 
   def main(args: Array[String]): Unit = {
-    fetchSizesSequentially()
     fetchSizesConcurrently()
+    fetchSizesSequentially()
   }
 
   def fetchSizesSequentially() = {
