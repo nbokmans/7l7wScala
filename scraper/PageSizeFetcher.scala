@@ -2,7 +2,6 @@ package scraper
 
 import akka.actor.{Props, Actor}
 
-
 /**
   * Created by Niels Bokmans on 22-3-2016.
   */
@@ -10,35 +9,29 @@ import akka.actor.{Props, Actor}
 
 class PageSizeFetcher(url: String) extends Actor {
 
-  val urls = List("http://www.amazon.com", "http://www.google.com", "http://www.cnn.com", "http://www.twitter.com")
-
-  val start = System.nanoTime
-
   override def preStart(): Unit = {
-    println("Fetching page size: " + url)
-    val fetcher = context.actorOf(Props(new SizerState(url)), "sizer") //line 5
-    fetcher ! SizerState.GetPageSize
+    val fetcher = context.actorOf(Props(new SizerActor()))
+    fetcher ! SizerState.GetPageSize(url)
   }
 
   def receive = {
-    case SizerState.Done =>
-      val end = System.nanoTime
-      println("Fetching " + url + " took " + (end - start) / 1000000000.0 + " seconds.")
+    case SizerState.Done(time : Long, amtOfLinks: Int) =>
+      println("Fetching " + url + " took " + time / 1000000000.0 + " seconds. Had " + amtOfLinks + " links.")
 
   }
 
   object SizerState {
 
-    case object GetPageSize
+    case class GetPageSize(url : String)
 
-    case object Done
+    case class Done(time: Long, amtOfLinks: Int)
 
   }
 
-  class SizerState(url: String) extends Actor {
+  class SizerActor() extends Actor {
     def receive = {
-      case SizerState.GetPageSize =>
-        println("Page: " + url + ", size: " + Scraper.getPageSize(url))
+      case SizerState.GetPageSize(url : String) =>
+        val start = System.nanoTime
         val list = scala.collection.mutable.ListBuffer[String]()
         for (line <- Scraper.getPage(url).getLines()) {
           val pattern = "(?i)<a.+?href=\\\"(http.+?)\\\".*?>(.+?)</a>".r
@@ -46,8 +39,7 @@ class PageSizeFetcher(url: String) extends Actor {
             list += m
           }
         }
-        println("Page:" + url + ", amount of links: " + list.size)
-        sender ! SizerState.Done
+        sender ! SizerState.Done(System.nanoTime - start, list.size)
     }
   }
 

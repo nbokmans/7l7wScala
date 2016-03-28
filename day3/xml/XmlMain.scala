@@ -2,7 +2,6 @@ package day3.xml
 
 /**
   * Created by Niels Bokmans on 22-3-2016.
-  * ??? How to add
   */
 object XmlMain {
  def main(args: Array[String]) : Unit = {

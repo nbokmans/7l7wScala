@@ -6,7 +6,7 @@ import scala.util.Random
   * Created by Niels Bokmans on 21-3-2016.
   */
 class TicTacToe(singlePlayer: Boolean) {
-  val isSinglePlayer = singlePlayer;
+  val isSinglePlayer = singlePlayer
   val positions = List[TicTacToeTile](new TicTacToeTile(1), new TicTacToeTile(2), new TicTacToeTile(3),
     new TicTacToeTile(4), new TicTacToeTile(5), new TicTacToeTile(6), new TicTacToeTile(7),
     new TicTacToeTile(8), new TicTacToeTile(9))
@@ -61,6 +61,11 @@ class TicTacToe(singlePlayer: Boolean) {
     if (isSinglePlayer) {
       if (hasWinner == -1) "Het is gelijkspel!" else if (hasWinner == 1) "Speler 1 heeft gewonnen!" else "De computer heeft gewonnen!"
     } else if (hasWinner == -1) "Het is gelijkspel!" else if (hasWinner == 1) "Speler 1 heeft gewonnen!" else "Speler 2 heeft gewonnen!"
+  }
+
+
+  def helloWorld() = {
+    println("Hello World")
   }
 
   def hasWinner: Int = {
