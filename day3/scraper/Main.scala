@@ -1,10 +1,10 @@
-package scraper
+package day3.scraper
 
 /**
   * Created by Niels Bokmans on 22-3-2016.
   */
 
-import akka.actor.{Props, ActorSystem}
+import akka.actor.{ActorSystem, Props}
 
 object Main {
   val urls = List("http://www.amazon.com", "https://www.google.com", "http://www.cnn.com", "http://www.twitter.com")

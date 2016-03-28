@@ -1,11 +1,6 @@
-package scraper
+package day3.scraper
 
-import akka.actor.{Props, Actor}
-
-/**
-  * Created by Niels Bokmans on 22-3-2016.
-  */
-
+import akka.actor.{Actor, Props}
 
 class PageSizeFetcher(url: String) extends Actor {
 
@@ -42,6 +37,4 @@ class PageSizeFetcher(url: String) extends Actor {
         sender ! SizerState.Done(System.nanoTime - start, list.size)
     }
   }
-
-
 }
