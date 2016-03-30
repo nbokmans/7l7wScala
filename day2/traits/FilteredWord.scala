@@ -5,9 +5,10 @@ package day2.traits
   */
 class FilteredWord(override val word: String) extends Word(word) with Censor {
 
-  def censorFromFile() : String = {
+  def censorFromFile(): String = {
     censorFromInputFile("badwords.txt", word)
   }
+
   override def toString: String = {
     censor(word)
   }

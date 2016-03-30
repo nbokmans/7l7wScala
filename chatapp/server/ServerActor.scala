@@ -17,7 +17,7 @@ class ServerActor(actorSystem: ActorSystem) extends Actor {
   val ActiveClients = scala.collection.mutable.HashMap.empty[String, ActorRef]
   val ClientIdentities = scala.collection.mutable.HashMap.empty[String, String]
 
-  IO(Tcp)(actorSystem) ! Bind(self, new InetSocketAddress("localhost", Port))
+  IO(Tcp)(actorSystem) ! Bind(self, new InetSocketAddress(Server, Port))
 
   def receive: Receive = {
 
@@ -75,7 +75,7 @@ class ServerActor(actorSystem: ActorSystem) extends Actor {
       " (" + ClientIdentities.size + " users total)."
   }
 
-  def identify(clientActorName: String, text: String): Unit = {
+  def identify(clientActorName: String, text: String) = {
     val split = text.split(" ")
     if (split.length == 1) {
       sendMessage(clientActorName, "Please enter what username you would like to identify with!",
@@ -105,7 +105,7 @@ class ServerActor(actorSystem: ActorSystem) extends Actor {
     message.startsWith(CommandCharacter)
   }
 
-  def sendToAll(messageSender: String, message: String, serverMessage: Boolean = false): Unit = {
+  def sendToAll(messageSender: String, message: String, serverMessage: Boolean = false) = {
     if (serverMessage) {
       ActiveClients.foreach(f => sendMessage(f._1, message, serverMessage))
     } else {

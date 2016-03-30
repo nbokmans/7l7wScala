@@ -10,22 +10,14 @@ class PageSizeFetcher(url: String) extends Actor {
   }
 
   def receive = {
-    case SizerState.Done(time : Long, amtOfLinks: Int) =>
+    case SizerState.Done(time: Long, amtOfLinks: Int) =>
       println("Fetching " + url + " took " + time / 1000000000.0 + " seconds. Had " + amtOfLinks + " links.")
-
-  }
-
-  object SizerState {
-
-    case class GetPageSize(url : String)
-
-    case class Done(time: Long, amtOfLinks: Int)
 
   }
 
   class SizerActor() extends Actor {
     def receive = {
-      case SizerState.GetPageSize(url : String) =>
+      case SizerState.GetPageSize(url: String) =>
         val start = System.nanoTime
         val list = scala.collection.mutable.ListBuffer[String]()
         for (line <- Scraper.getPage(url).getLines()) {
@@ -37,4 +29,13 @@ class PageSizeFetcher(url: String) extends Actor {
         sender ! SizerState.Done(System.nanoTime - start, list.size)
     }
   }
+
+  object SizerState {
+
+    case class GetPageSize(url: String)
+
+    case class Done(time: Long, amtOfLinks: Int)
+
+  }
+
 }

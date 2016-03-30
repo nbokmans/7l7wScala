@@ -3,7 +3,7 @@ package chatapp.client
 import java.net.InetSocketAddress
 
 import akka.actor.{ActorSystem, Props}
-import chatapp.client.ClientState.SendMessage
+import chatapp.client.ClientMessage.SendMessage
 
 /**
   * Created by Niels Bokmans on 30-3-2016.

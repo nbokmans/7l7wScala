@@ -5,7 +5,7 @@ package day2.traits
   */
 object TraitsMain {
 
-  def main(args : Array[String]) = {
+  def main(args: Array[String]) = {
     val filteredWord = new FilteredWord("Test")
     val filteredWord2 = new FilteredWord("Shoot")
     val filteredWord3 = new FilteredWord("Darn")

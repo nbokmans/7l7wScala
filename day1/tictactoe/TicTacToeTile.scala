@@ -7,6 +7,7 @@ import day1.tictactoe.TicTacToeMarks.TicTacToeMarks
   */
 class TicTacToeTile(position: Int) {
   val myPosition = position
-  var mark : TicTacToeMarks = TicTacToeMarks.Empty
-  override def toString : String = mark
+  var mark: TicTacToeMarks = TicTacToeMarks.Empty
+
+  override def toString: String = mark
 }

@@ -2,11 +2,11 @@ package chatapp.client
 
 import java.net.InetSocketAddress
 
-import akka.actor.{Kill, PoisonPill, ActorSystem, Actor}
-import akka.io.{IO, Tcp}
+import akka.actor.{Actor, ActorSystem, Kill}
 import akka.io.Tcp._
+import akka.io.{IO, Tcp}
 import akka.util.ByteString
-import chatapp.client.ClientState.{SendMessage}
+import chatapp.client.ClientMessage.SendMessage
 
 /**
   * Created by Niels Bokmans on 30-3-2016.
@@ -20,7 +20,7 @@ class ClientActor(address: InetSocketAddress, actorSystem: ActorSystem) extends 
       println("Failed to connect to " + address.toString)
       self ! Kill
       actorSystem.terminate()
-    case c@Connected(remote, local) =>
+    case Connected(remote, local) =>
       println("Successfully connected to " + address)
       val connection = sender()
       connection ! Register(self)

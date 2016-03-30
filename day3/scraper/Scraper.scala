@@ -16,7 +16,7 @@ object Scraper {
   def getPage(url: String) = {
     try {
       Source.fromURL(url)
-    }  catch {
+    } catch {
       case ioe: IOException => null
     }
   }

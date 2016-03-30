@@ -5,10 +5,6 @@ package day2.foldleft
   */
 object FoldLeftMain {
 
-  def stringList = List[String]("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten")
-
-  def intList = List[Int](1, 2, 3, 4)
-
   def list = List(1, 2, 3)
 
   def main(args: Array[String]): Unit = {
@@ -17,6 +13,10 @@ object FoldLeftMain {
     println("Fold left sum of List[Int]: " + countIntListFoldLeft(intList))
     println("Append List[String]: " + appendStringList(stringList))
   }
+
+  def stringList = List[String]("One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten")
+
+  def intList = List[Int](1, 2, 3, 4)
 
   def countIntListSum(list: List[Int]): Int = {
     list.sum

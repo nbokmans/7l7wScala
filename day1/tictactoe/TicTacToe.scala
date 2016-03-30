@@ -57,15 +57,22 @@ class TicTacToe(singlePlayer: Boolean) {
     true
   }
 
+  def selectRandom() = {
+    Random.shuffle(positions).find(_.mark == TicTacToeMarks.Empty).get.mark = TicTacToeMarks.Cross
+  }
+
+  def gameDone: Boolean = {
+    hasWinner != -1 || getEmptyTiles == 0
+  }
+
+  def getEmptyTiles: Int = {
+    positions.count(_.mark == TicTacToeMarks.Empty)
+  }
+
   def winner: String = {
     if (isSinglePlayer) {
       if (hasWinner == -1) "Het is gelijkspel!" else if (hasWinner == 1) "Speler 1 heeft gewonnen!" else "De computer heeft gewonnen!"
     } else if (hasWinner == -1) "Het is gelijkspel!" else if (hasWinner == 1) "Speler 1 heeft gewonnen!" else "Speler 2 heeft gewonnen!"
-  }
-
-
-  def helloWorld() = {
-    println("Hello World")
   }
 
   def hasWinner: Int = {
@@ -87,21 +94,13 @@ class TicTacToe(singlePlayer: Boolean) {
     positions.filter(_.myPosition == position).head
   }
 
-  def selectRandom() = {
-    Random.shuffle(positions).find(_.mark == TicTacToeMarks.Empty).get.mark = TicTacToeMarks.Cross
+  def helloWorld() = {
+    println("Hello World")
   }
 
   def print() = {
     println(positions.head.toString + " " + positions(1).toString + " " + positions(2).toString)
     println(positions(3).toString + " " + positions(4).toString + " " + positions(5).toString)
     println(positions(6).toString + " " + positions(7).toString + " " + positions(8).toString)
-  }
-
-  def gameDone: Boolean = {
-    hasWinner != -1 || getEmptyTiles == 0
-  }
-
-  def getEmptyTiles: Int = {
-    positions.count(_.mark == TicTacToeMarks.Empty)
   }
 }
