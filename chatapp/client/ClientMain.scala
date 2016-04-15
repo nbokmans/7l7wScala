@@ -25,6 +25,5 @@ object ClientMain extends App {
       val msg = bufferedReader.readLine()
       clientConnection ! SendMessage(msg)
       loop(msg)
-
   }
 }
